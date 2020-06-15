@@ -1,0 +1,75 @@
+{% load i18n %}
+{% block title %}
+{% trans "Players List" %}
+<p>TEAM:</p> {{team_title}}
+{% endblock %}
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 5px;
+  text-align: left;
+}
+</style>
+
+{% block content %}
+
+    {% if teamdetails %}
+        <table>
+            <thead>
+                <tr>
+                    <th>{% trans "Player Name" %}</th>
+                    <th>{% trans "Player Display Picture" %}</th>
+                    <th>{% trans "Player Jersey Number" %}</th>
+                    <th>{% trans "Player Country" %}</th>
+                    <th>{% trans "Matches Played" %}</th>
+                    <th>{% trans "Wickets" %}</th>
+                    <th>{% trans "Runs" %}</th>
+                    <th>{% trans "Centuries" %}</th>
+                    <th>{% trans "Fifties" %}</th>
+                    <th>{% trans "Highest Score" %}</th>
+                    <th>{% trans "Team" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for detail in teamdetails %}
+                    <tr>
+                        <td>{{ detail.full_name|default:"-" }}</td>
+                        <td> <p><img src="{{ detail.picture.url }}" width="80px"></p> </td>
+                        <td>{{ detail.jersey_number|default:"-" }}</td>
+                        <td>{{ detail.origin_country|default:"-" }}</td>
+                        <td>{% for entry in detail.player.all %}
+                                {{entry.no_of_matches}}
+                                {% empty %}
+                             {% endfor %}</td>
+                        <td>{% for entry in detail.player.all %}
+                                {{entry.total_wickets}}
+                                {% empty %}
+                             {% endfor %}</td>
+                        <td>{% for entry in detail.player.all %}
+                                {{entry.total_runs}}
+                                {% empty %}
+                             {% endfor %}</td>
+                        <td>{% for entry in detail.player.all %}
+                                {{entry.total_centuries}}
+                                {% empty %}
+                             {% endfor %}</td>
+                        <td>{% for entry in detail.player.all %}
+                                {{entry.total_fifties}}
+                                {% empty %}
+                             {% endfor %}</td>
+                        <td>{% for entry in detail.player.all %}
+                                {{entry.highest_score}}
+                                {% empty %}
+                             {% endfor %}</td>
+                        <td>{{ detail.team|default:"-" }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>{% trans "No Players in this team" %}</p>
+    {% endif %}
+{% endblock content %}

@@ -1,0 +1,39 @@
+{% load i18n %}
+{% block title %}
+    {% trans "Match Fixture" %}
+{% endblock %}
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 5px;
+  text-align: left;
+}
+</style>
+{% block content %}
+
+    {% if stats %}
+        <table>
+            <thead>
+                <tr>
+                    <th>{% trans "Home Team" %}</th>
+                    <th>{% trans "Away Team" %}</th>
+                    <th>{% trans "Winning Team" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stat in stats %}
+                    <tr>
+                        <td><a href="{% url 'cricket:team-details' stat.home_team.id %}">{{ stat.home_team|default:"-" }}</a></td>
+                        <td><a href="{% url 'cricket:team-details' stat.away_team.id %}">{{ stat.away_team|default:"-" }}</a></td>
+                        <td>{{ stat.winner_team|default:"-" }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>{% trans "No Cricket Teams have been made yet." %}</p>
+    {% endif %}
+{% endblock content %}

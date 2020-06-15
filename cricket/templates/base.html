@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Cricket | India</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}?v=8" rel="stylesheet">
+</head>
+<body>
+<header class="main__header">
+  <div class="container">
+    <nav class="navbar navbar-default" role="navigation"> 
+      <div class="navbar-header">
+        <h1 class="navbar-brand"><a href="/">CRICKET</a></h1>
+        <a href="/" class="submenu">Menus</a> </div>
+      <div class="menuBar">
+        <ul class="menu">
+          <li class="active"><a href="{% url 'cricket:teams' %}">Teams</a></li>
+          <li class="dropdown"><a href="{% url 'cricket:players' %}">Players</a></li>
+          <li><a href="{% url 'cricket:fixture'%}">Fixtures</a></li>
+          <li><a href="{% url 'cricket:points'%}">Points</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</header>
+{% block content %}
+<section class="slider">
+  <div id="myCarousel" class="carousel slide carousel-fade" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="item active"> <img data-src="{% static 'images/slider3.jpg' %}" alt="third slide" src="{% static 'images/slider2.jpg' %}">
+        <div class="container">
+          <div class="carousel-caption">
+            <h1 class="">IPL 2020 suspended till further notice</h1>
+            <p><a class="btn btn-default btn-lg" href="{% url 'cricket:teams' %}" role="button">Teams</a>
+            <a class="btn btn-default btn-lg" href="{% url 'cricket:fixture' %}" role="button">Fixtures</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+ </div>
+</section>
+{% endblock %}
+</body>
+</html>

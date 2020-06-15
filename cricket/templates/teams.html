@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% block title %}
+    {% trans "Cricket Team List" %}
+{% endblock %}
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 5px;
+  text-align: left;
+}
+</style>
+{% block content %}
+    {% if teams %}
+        <table class="table table-bordered .table-hover teamtable">
+            <thead>
+                <tr>
+                    <th scope="col">{% trans "Title" %}</th>
+                    <th scope="col">{% trans "Team Logo" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for team in teams %}
+                    <tr>
+                        <td scope="row"><a href="{% url 'cricket:team-details' team.id %}">{{ team.team_name|default:"-" }}</a></td>
+                        <td scope="row"> <p><img src="{{ team.logo.url }}" width="80px"></p> </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>{% trans "No Cricket Teams have been made yet." %}</p>
+    {% endif %}
+{% endblock content %}
